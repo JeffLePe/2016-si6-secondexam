@@ -7,19 +7,10 @@
             url: "/api/students/" + id
         })
         .done(student => {
-            $("#studentId").val('')
-            $('#data').append('<h2>' + student.name + '</p>')
-            $("#email").append('<p>'+ student.email +'</p>')
-            var media = (student.grades[0] + student.grades[1] + student.grades[2] + student.grades[3])/4
-            if(media < 50) {
-                $("#status").append('<p> Rerovado </p>')
-            }
-            else if(media >= 50 & media < 60) {
-                $("#status").append('<p> Final </p>')
-            }
-            else{
-                $("#status").append('<p> Aprovado </p>')
-            }
+            $("h2").html(student.name)
+            $("#email").html(student.email)
+            $("#photo").attr("src", student.photo)
+            $("#status").html(student.status)
         });
     }
 

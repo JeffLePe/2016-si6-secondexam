@@ -1,10 +1,10 @@
 "use strict"
 
 const express = require("express")
-const bodyparser = require("body-parser")
+//const bodyparser = require("body-parser")
 
 const app = express()
-app.use(bodyparser.json())
+//app.use(bodyparser.json())
 app.use(express.static("public"))
 
 //Servidor
@@ -15,8 +15,4 @@ app.get('/', function(request, response) {
     response.sendFile("index.html")
 })
 
-/*app.post('/app/students', function(request, response) {
-    response.sendFile("./app/studentAPI.js")
-})*/
-
-app.use("app/students", require('./app/studentAPI.js'))
+app.use('/api/students', require("./app/studentAPI"))

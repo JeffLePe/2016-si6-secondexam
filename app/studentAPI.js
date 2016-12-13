@@ -9,15 +9,36 @@ function searchStudent(studentId) {
     return studentDB.find(student => student.id === studentId)
 }
 
-router.get("/", function(request, response) {
+router.get("/", (request, response) => {
     response.json(studentDB)
 })
 
-router.get("/:studentID", function(request, response) {
-    var studenID = request.params.studentID
+router.get("/:id", (request, response) => {
+    var studenID = request.params.id
     var studentData = searchStudent(studenID)
     
     if(studentData) {
+        var notas = studentData.grades
+        var result = 0
+        var status
+        
+        notas.forEach(function(nota) {
+            result += nota
+        })
+        
+        result = result/notas.length
+        
+        if(result < 50) {
+            status = "Disapproved"
+        }
+        else if(result >=50 && result < 60) {
+            status = "Final Test"
+        }
+        else {
+            status = "Approved"
+        }
+        
+        studentData.status = status
         response.json(studentData)
     }
     else {
